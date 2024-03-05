@@ -2,7 +2,6 @@ from fastapi import FastAPI, UploadFile, File
 import paramiko
 import os
 import time 
-#from starlette.responses import FileResponse
 from fastapi.responses import FileResponse
 import asyncssh
 import asyncio
@@ -16,7 +15,6 @@ async def ssh_operation(file_name):
     private_key = asyncssh.read_private_key(private_key_path)
 
     async with asyncssh.connect(remote_server_ip, username='fsuser', client_keys=[private_key], known_hosts=None ) as conn:
-#        await conn.scp(file_content, f'/home/fsuser/{file_name}')
         result = await conn.run(f'/path/to/nougat /path/to/{file_name} -o  ./  -m 0.1.0-base --recompute', check=True)
         return result
 
